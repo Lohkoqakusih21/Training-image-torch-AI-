@@ -1,0 +1,82 @@
+# Iterasi 1
+self.conv1 = nn.Conv2d(3, 32, 5)
+self.conv2 = nn.Conv2d(32, 64, 5)
+self.conv3 = nn.Conv2d(64, 128, 3)
+self.conv4 = nn.Conv2d(128, 256, 5)
+
+# Iterasi 2: Menambah filter dan mengubah kernel
+self.conv1 = nn.Conv2d(3, 48, 3)
+self.conv2 = nn.Conv2d(48, 96, 3)
+self.conv3 = nn.Conv2d(96, 192, 3)
+self.conv4 = nn.Conv2d(192, 384, 3)
+
+# Iterasi 3: Menambahkan dilated convolution
+self.conv1 = nn.Conv2d(3, 64, 3, dilation=2)
+self.conv2 = nn.Conv2d(64, 128, 3, dilation=2)
+self.conv3 = nn.Conv2d(128, 256, 3, dilation=2)
+self.conv4 = nn.Conv2d(256, 512, 3, dilation=2)
+
+# Iterasi 4: Menggunakan grup konvolusi
+self.conv1 = nn.Conv2d(3, 72, 5, groups=3)
+self.conv2 = nn.Conv2d(72, 144, 5, groups=4)
+self.conv3 = nn.Conv2d(144, 288, 3, groups=4)
+self.conv4 = nn.Conv2d(288, 576, 5, groups=4)
+
+# Iterasi 5: Menambahkan depthwise separable convolution
+self.conv1 = nn.Sequential(
+    nn.Conv2d(3, 3, 5, groups=3),
+    nn.Conv2d(3, 80, 1)
+)
+self.conv2 = nn.Sequential(
+    nn.Conv2d(80, 80, 5, groups=80),
+    nn.Conv2d(80, 160, 1)
+)
+self.conv3 = nn.Sequential(
+    nn.Conv2d(160, 160, 3, groups=160),
+    nn.Conv2d(160, 320, 1)
+)
+self.conv4 = nn.Sequential(
+    nn.Conv2d(320, 320, 5, groups=320),
+    nn.Conv2d(320, 640, 1)
+)
+
+# Iterasi 6: Menggunakan asymmetric convolution
+self.conv1 = nn.Sequential(
+    nn.Conv2d(3, 88, (1, 5)),
+    nn.Conv2d(88, 88, (5, 1))
+)
+self.conv2 = nn.Sequential(
+    nn.Conv2d(88, 176, (1, 5)),
+    nn.Conv2d(176, 176, (5, 1))
+)
+self.conv3 = nn.Sequential(
+    nn.Conv2d(176, 352, (1, 3)),
+    nn.Conv2d(352, 352, (3, 1))
+)
+self.conv4 = nn.Sequential(
+    nn.Conv2d(352, 704, (1, 5)),
+    nn.Conv2d(704, 704, (5, 1))
+)
+
+# Iterasi 7: Menambahkan skip connection
+self.conv1 = nn.Conv2d(3, 96, 3)
+self.conv2 = nn.Conv2d(96, 192, 3)
+self.conv3 = nn.Conv2d(192, 384, 3)
+self.conv4 = nn.Conv2d(384, 768, 3)
+self.skip = nn.Conv2d(96, 768, 1)  # Skip connection dari conv1 ke output conv4
+
+# Iterasi 8: Menggunakan inception-like module
+self.conv1 = nn.Conv2d(3, 104, 3)
+self.conv2 = nn.ModuleList([
+    nn.Conv2d(104, 52, 1),
+    nn.Conv2d(104, 104, 3),
+    nn.Conv2d(104, 52, 5),
+    nn.MaxPool2d(3, stride=1, padding=1)
+])
+self.conv3 = nn.ModuleList([
+    nn.Conv2d(208, 104, 1),
+    nn.Conv2d(208, 208, 3),
+    nn.Conv2d(208, 104, 5),
+    nn.MaxPool2d(3, stride=1, padding=1)
+])
+self.conv4 = nn.Conv2d(416, 832, 1)
